@@ -28,7 +28,7 @@ class Link < ApplicationRecord
     end
 
     def sanitize(url)
-
+      url
     end
   end
 end

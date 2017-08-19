@@ -1,0 +1,14 @@
+<h1>shrnk</h1>
+
+<%= form_for @link do |f| %>
+  <%= f.text_field :original_url %>
+  <%= f.submit 'shrnk!' %>
+<% end %>
+
+<% if @new_link %>
+  <% @new_link.errors.full_messages.each do |e| %>
+    <%= e %>
+  <% end %>
+  <em><%= @new_link.original_url %></em>
+  <strong><%= @new_link.short_url %></strong>
+<% end %>
