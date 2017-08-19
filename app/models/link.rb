@@ -7,14 +7,28 @@ class Link < ApplicationRecord
   validates :original_url, presence: true, uniqueness: true
   validates :short_url, presence: true, uniqueness: true
 
-  def self.generate_short_url
-    (1..7).map{ |i| CHARS.sample }.join
-  end
+  class << self
+    def shrink(url)
+      link = find_by(original_url: sanitize(url))
+      return link if link
 
-  def shrink
-    link = find_by(original_url: original_url)
-    return link.short_url if link
-    # TODO: check for collision
-    short_url = self.class.generate_short_url
+      link = new(original_url: url)
+
+      loop do
+        link.short_url = generate_short_url
+        break unless find_by(short_url: link.short_url)
+      end
+
+      link.save
+      link
+    end
+
+    def generate_short_url
+      (1..7).map{ |i| CHARS.sample }.join
+    end
+
+    def sanitize(url)
+
+    end
   end
 end
