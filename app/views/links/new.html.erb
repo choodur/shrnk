@@ -6,9 +6,12 @@
 <% end %>
 
 <% if @new_link %>
-  <% @new_link.errors.full_messages.each do |e| %>
-    <%= e %>
+  <% if @new_link.errors.blank? %>
+    <em><%= @new_link.original_url %></em>
+    <strong><%= @new_link.short_url %></strong>
+  <% else %>
+    <% @new_link.errors.full_messages.each do |e| %>
+      <em><%= e %></em>
+    <% end %>
   <% end %>
-  <em><%= @new_link.original_url %></em>
-  <strong><%= @new_link.short_url %></strong>
 <% end %>

@@ -7,7 +7,7 @@ class LinksController < ApplicationController
     end
 
     if @link
-      redirect_to @link.original_url
+      redirect_to @link.original_url, status: :moved_permanently
     else
       raise ActionController::RoutingError.new('Not Found')
     end

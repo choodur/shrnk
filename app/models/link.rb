@@ -4,22 +4,35 @@ class Link < ApplicationRecord
     range.map{ |char| VOWELS.include?(char.try(:downcase)) ? nil : char }
   end.compact
 
-  validates :original_url, presence: true, uniqueness: true
+  validates :original_url, presence: true, uniqueness: true, url: {no_local: true}
   validates :short_url, presence: true, uniqueness: true
 
   class << self
     def shrink(url)
-      link = find_by(original_url: sanitize(url))
-      return link if link
+      link = new(original_url: sanitize(url))
 
-      link = new(original_url: url)
+      # 1. check if URL is valid
+      opts = {
+        attributes: [:original_url],
+        no_local: true
+      }
+      validator = ActiveModel::Validations::UrlValidator.new(opts)
+      if validator.validate_each(link, :original_url, link.original_url)
+        return link
+      end
 
+      # 2. check if taken
+      existing_link = find_by(original_url: link.original_url)
+      return existing_link if existing_link
+
+      # 3. generate the shortened URL
       loop do
         link.short_url = generate_short_url
         break unless find_by(short_url: link.short_url)
       end
 
-      link.save
+      # we have run the validations before, no need to hit the db again
+      link.save(validate: false)
       link
     end
 
@@ -27,8 +40,16 @@ class Link < ApplicationRecord
       (1..7).map{ |i| CHARS.sample }.join
     end
 
+    private
+
     def sanitize(url)
-      url
+      address = url.strip
+      return address if address.blank?
+      parsed = URI.parse(address)
+      # users may input host without scheme which the url validator would treat as invalid
+      parsed.scheme.blank? && url.split('.').size > 1 ? "http://#{address}" : address
+    rescue URI::InvalidURIError
+      address
     end
   end
 end
