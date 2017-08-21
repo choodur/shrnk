@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer'
 gem 'jbuilder', '~> 2.5'
 gem 'validate_url'
+gem 'base62-rb'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

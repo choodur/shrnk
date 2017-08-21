@@ -1,8 +1,4 @@
 class Link < ApplicationRecord
-  VOWELS = %w(a e i o u)
-  CHARS = [0..9, 'A'..'Z', 'a'..'z'].flat_map do |range|
-    range.map{ |char| VOWELS.include?(char.try(:downcase)) ? nil : char }
-  end.compact
 
   validates :original_url, presence: true, uniqueness: true, url: {no_local: true}
   validates :short_url, presence: true, uniqueness: true
@@ -27,7 +23,7 @@ class Link < ApplicationRecord
 
       # 3. generate the shortened URL
       loop do
-        link.short_url = generate_short_url
+        link.short_url = generate_short_url(link.original_url)
         break unless find_by(short_url: link.short_url)
       end
 
@@ -36,8 +32,8 @@ class Link < ApplicationRecord
       link
     end
 
-    def generate_short_url
-      (1..7).map{ |i| CHARS.sample }.join
+    def generate_short_url(url)
+      Base62.encode(Zlib.crc32(url + SecureRandom.hex))
     end
 
     private

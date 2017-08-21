@@ -51,8 +51,9 @@ RSpec.describe Link, type: :model do
   end
 
   describe '::generate_short_url' do
-    it 'generates a 7 character string' do
-      expect(Link.generate_short_url.size).to eq(7)
+    it 'generates a random string for the same input' do
+      input = 'test.com'
+      expect(Link.generate_short_url(input)).not_to eq(Link.generate_short_url(input))
     end
   end
 end
