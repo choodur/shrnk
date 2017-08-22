@@ -22,18 +22,15 @@ class Link < ApplicationRecord
       return existing_link if existing_link
 
       # 3. generate the shortened URL
-      loop do
-        link.short_url = generate_short_url(link.original_url)
-        break unless find_by(short_url: link.short_url)
-      end
+      link.short_url = generate_short_url
 
       # we have run the validations before, no need to hit the db again
       link.save(validate: false)
       link
     end
 
-    def generate_short_url(url)
-      Base62.encode(Zlib.crc32(url + SecureRandom.hex))
+    def generate_short_url
+      Base62.encode(Time.now.to_i.to_s.reverse.to_i)
     end
 
     private

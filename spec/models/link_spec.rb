@@ -12,24 +12,26 @@ RSpec.describe Link, type: :model do
     let(:invalid_url_error) { 'is not a valid URL' }
     let(:valid_host) { 'google.com' }
 
-    it 'treats blank strings as invalid' do
-      link = Link.shrink('')
-      expect(link.errors.messages[:original_url]).to include(invalid_url_error)
-    end
+    context 'input validity' do
+      it 'treats blank strings as invalid' do
+        link = Link.shrink('')
+        expect(link.errors.messages[:original_url]).to include(invalid_url_error)
+      end
 
-    it 'treats single words as invalid' do
-      link = Link.shrink('testing')
-      expect(link.errors.messages[:original_url]).to include(invalid_url_error)
-    end
+      it 'treats single words as invalid' do
+        link = Link.shrink('testing')
+        expect(link.errors.messages[:original_url]).to include(invalid_url_error)
+      end
 
-    it 'treats localhost as invalid' do
-      link = Link.shrink('localhost:3000')
-      expect(link.errors.messages[:original_url]).to include(invalid_url_error)
-    end
+      it 'treats localhost as invalid' do
+        link = Link.shrink('localhost:3000')
+        expect(link.errors.messages[:original_url]).to include(invalid_url_error)
+      end
 
-    it 'treats hosts without scheme as valid' do
-      link = Link.shrink(valid_host)
-      expect(link.errors.messages[:original_url]).to be_empty
+      it 'treats hosts without scheme as valid' do
+        link = Link.shrink(valid_host)
+        expect(link.errors.messages[:original_url]).to be_empty
+      end
     end
 
     it 'appends a scheme to a valid host' do
@@ -51,9 +53,15 @@ RSpec.describe Link, type: :model do
   end
 
   describe '::generate_short_url' do
-    it 'generates a random string for the same input' do
-      input = 'test.com'
-      expect(Link.generate_short_url(input)).not_to eq(Link.generate_short_url(input))
+    it 'generates the same string for the same input if run at the same time' do
+      expect(Link.generate_short_url).to eq(Link.generate_short_url)
+    end
+
+    it 'generates a different string for the same input if not run at the same time' do
+      link1 = Link.generate_short_url
+      sleep(1)
+      link2 = Link.generate_short_url
+      expect(link1).not_to eq(link2)
     end
   end
 end
