@@ -53,15 +53,8 @@ RSpec.describe Link, type: :model do
   end
 
   describe '::generate_short_url' do
-    it 'generates the same string for the same input if run at the same time' do
-      expect(Link.generate_short_url).to eq(Link.generate_short_url)
-    end
-
-    it 'generates a different string for the same input if not run at the same time' do
-      link1 = Link.generate_short_url
-      sleep(1)
-      link2 = Link.generate_short_url
-      expect(link1).not_to eq(link2)
+    it 'generates a random string for the same input' do
+      expect(Link.generate_short_url).not_to eq(Link.generate_short_url)
     end
   end
 end
