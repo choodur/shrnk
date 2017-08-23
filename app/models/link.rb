@@ -1,5 +1,7 @@
 class Link < ApplicationRecord
 
+  has_many :visitors
+
   validates :original_url, presence: true, uniqueness: true, url: {no_local: true}
   validates :short_url, presence: true, uniqueness: true
 
@@ -54,6 +56,16 @@ class Link < ApplicationRecord
       parsed.scheme.blank? && url.split('.').size > 1 ? "http://#{address}" : address
     rescue URI::InvalidURIError
       address
+    end
+  end
+
+  def get_visitor_stats_by(attr)
+    items = visitors.pluck(attr)
+    new_hash = Hash.new{ |k, v| k[v] = 0}
+    items.reduce(new_hash) do |hash, item|
+      key = item.nil? ? 'None' : item
+      hash[key] += 1
+      hash
     end
   end
 end

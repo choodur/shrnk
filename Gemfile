@@ -14,6 +14,9 @@ gem 'mini_racer'
 gem 'jbuilder', '~> 2.5'
 gem 'validate_url'
 gem 'base62-rb'
+gem 'maxminddb'
+gem 'useragent'
+gem 'sucker_punch', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

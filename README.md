@@ -1,24 +1,37 @@
-# README
+# shrnk
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Yet another URL shortening app.
 
-Things you may want to cover:
 
-* Ruby version
+## Development
+### Installation
 
-* System dependencies
+Clone the repository:
+```
+git clone <git/ssh:/path/to/repo>
+```
 
-* Configuration
+Install ruby dependencies:
+```
+bundle install
+```
 
-* Database creation
+Copy and populate configuration files:
+```
+cp config/*.yml.example config/*.yml
+```
 
-* Database initialization
+Setup the database:
+```
+bin/rails db:setup
+```
 
-* How to run the test suite
+#### MaxMindDB
 
-* Services (job queues, cache servers, search engines, etc.)
+A local MaxMind DB is used to record the city and country of a visitor via IP address.
 
-* Deployment instructions
+##### Download and reference local database
 
-* ...
+Download the local database [here](http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz). ([full site](https://dev.maxmind.com/geoip/geoip2/geolite2/))
+
+After unpacking the file, move `GeoLite2-City.mmdb'` to `lib`.
