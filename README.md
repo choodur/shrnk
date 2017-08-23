@@ -33,7 +33,7 @@ bin/rails db:setup
 
 #### MaxMindDB
 
-A local MaxMind DB is used to record the city and country of a visitor via IP address.
+A local MaxMind DB is required to record the city and country of a visitor via IP address.
 
 ##### Download and reference local database
 

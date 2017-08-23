@@ -7,7 +7,12 @@
           <button class="btn btn-primary btn-copy">Copy</button>
         </div>
       </div>
-      <div class="card-subtitle text-gray"><%= link_to link.original_url, link.original_url %></div>
+      <div class="card-subtitle text-gray">
+        <div><%= link_to link.original_url, link.original_url %></div>
+        <div>
+          <small>Total Clicks: <%= link.visitors_count %></small>
+        </div>
+      </div>
     </div>
   </div>
 <% else %>
