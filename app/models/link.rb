@@ -1,4 +1,7 @@
 class Link < ApplicationRecord
+
+  has_many :visitors
+
   VOWELS = %w(a e i o u)
   CHARS = [0..9, 'A'..'Z', 'a'..'z'].flat_map do |range|
     range.map{ |char| VOWELS.include?(char.try(:downcase)) ? nil : char }
