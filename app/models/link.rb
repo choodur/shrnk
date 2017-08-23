@@ -55,4 +55,14 @@ class Link < ApplicationRecord
       address
     end
   end
+
+  def get_visitor_stats_by(attr)
+    items = visitors.pluck(attr)
+    new_hash = Hash.new{ |k, v| k[v] = 0}
+    items.reduce(new_hash) do |hash, item|
+      key = item.nil? ? 'None' : item
+      hash[key] += 1
+      hash
+    end
+  end
 end
