@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer'
 gem 'jbuilder', '~> 2.5'
 gem 'validate_url'
-gem 'maxmind_geoip2', github: 'envato/geoip2'
+gem 'maxminddb'
 gem 'useragent'
 gem 'sucker_punch', '~> 2.0'
 

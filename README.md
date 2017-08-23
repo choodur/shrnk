@@ -30,20 +30,6 @@ bin/rails db:setup
 
 A local MaxMind DB is used to record the city and country of a visitor via IP address.
 
-Install [geolocation DB reader](https://github.com/maxmind/libmaxminddb):
-
-##### On Ubuntu
-```
-$ sudo add-apt-repository ppa:maxmind/ppa
-$ sudo apt-get update
-$ sudo apt-get install libmaxminddb0 libmaxminddb-dev mmdb-bin
-```
-
-##### On Mac OS X via Homebrew
-```
-$ brew install libmaxminddb
-```
-
 ##### Download and reference local database
 
 Download the local database [here](http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz). ([full site](https://dev.maxmind.com/geoip/geoip2/geolite2/))

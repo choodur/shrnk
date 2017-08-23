@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/envato/geoip2.git
-  revision: b23eff08b8285c76d8b387a346e2ab6fac189667
-  specs:
-    maxmind_geoip2 (0.0.8)
-
-GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
   revision: edaf9cb926ee9c59c59729e7a4f8c206b44da8a1
   branch: rails-5
@@ -78,6 +72,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    maxminddb (0.1.14)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -193,7 +188,7 @@ DEPENDENCIES
   byebug
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  maxmind_geoip2!
+  maxminddb
   mini_racer
   pg
   puma (~> 3.7)

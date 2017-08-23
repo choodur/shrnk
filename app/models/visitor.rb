@@ -16,10 +16,9 @@ class Visitor < ApplicationRecord
   end
 
   def get_visitor_details(remote_ip)
+    address = MaxMind.lookup(remote_ip)
     self.ip = remote_ip
-    address = MaxmindGeoIP2.locate(remote_ip)
-    return unless address
-    self.city = address['city']
-    self.country = address['country']
+    self.city = address.city.name
+    self.country = address.country.iso_code
   end
 end
