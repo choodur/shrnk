@@ -1,0 +1,18 @@
+$('.results').html("<%= escape_javascript(render(partial: 'results', locals: { link: @link })) %>")
+$('input:text').val('')
+
+var $target = $('#short-url')
+var clipboard = new Clipboard('.btn-copy', {
+  target: $target[0],
+  text: function() { return $target[0].href }
+})
+
+clipboard.on('success', function(e) {
+  $target.animate({fontSize: '22px'},
+    100, function() {
+      $(this).animate({fontSize: '20px'}, 100)
+    }
+  )
+
+  e.clearSelection()
+})

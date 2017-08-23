@@ -1,0 +1,19 @@
+<% if link.errors.blank? %>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title h5">
+        <%= link_to link.short_url, "#{link.short_url}", id: 'short-url' %>
+        <div class="float-right">
+          <button class="btn btn-primary btn-copy">Copy</button>
+        </div>
+      </div>
+      <div class="card-subtitle text-gray"><%= link_to link.original_url, link.original_url %></div>
+    </div>
+  </div>
+<% else %>
+  <p>
+    <% link.errors.full_messages.each do |e| %>
+      <em><%= e %></em>
+    <% end %>
+  </p>
+<% end %>

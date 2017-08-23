@@ -8,10 +8,7 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new
-    @new_link = Link.shrink(link_params[:original_url])
-
-    render :new
+    @link = Link.shrink(link_params[:original_url])
   end
 
   def redirect

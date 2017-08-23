@@ -1,17 +1,15 @@
-<h1>shrnk</h1>
-
-<%= form_for @link do |f| %>
-  <%= f.text_field :original_url %>
-  <%= f.submit 'shrnk!' %>
-<% end %>
-
-<% if @new_link %>
-  <% if @new_link.errors.blank? %>
-    <em><%= @new_link.original_url %></em>
-    <strong><%= @new_link.short_url %></strong>
-  <% else %>
-    <% @new_link.errors.full_messages.each do |e| %>
-      <em><%= e %></em>
+<div class="columns">
+  <div class="column col-12">
+    <h1 class="main-title text-center">shrnk</h1>
+  </div>
+  <div class="column col-12">
+    <%= form_with(model: @link) do |f| %>
+      <div class="input-group">
+        <%= f.text_field :original_url, class: 'form-input input-lg', placeholder: 'Paste a link to shrnk!' %>
+        <%= f.submit 'shrnk!', class: 'btn btn-primary input-group-btn btn-lg' %>
+      </div>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+  <div class="results column col-12">
+  </div>
+</div>

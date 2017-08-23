@@ -16,6 +16,11 @@ Install ruby dependencies:
 bundle install
 ```
 
+Install javascript dependencies:
+```
+yarn install
+```
+
 Copy and populate configuration files:
 ```
 cp config/*.yml.example config/*.yml
