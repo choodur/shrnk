@@ -1,15 +1,19 @@
-<div class="columns">
-  <div class="column col-12">
-    <h1 class="main-title text-center">shrnk</h1>
-  </div>
-  <div class="column col-12">
-    <%= form_with(model: @link) do |f| %>
-      <div class="input-group">
-        <%= f.text_field :original_url, class: 'form-input input-lg', placeholder: 'Paste a link to shrnk!' %>
-        <%= f.submit 'shrnk!', class: 'btn btn-primary input-group-btn btn-lg' %>
+<div class="wrapper-center">
+  <div class="container grid-lg">
+    <div class="columns">
+      <div class="column col-12">
+        <h1 class="main-title text-center">shrnk</h1>
       </div>
-    <% end %>
-  </div>
-  <div class="results column col-12">
+      <div class="column col-12">
+        <%= form_with(model: @link) do |f| %>
+          <div class="input-group">
+            <%= f.text_field :original_url, class: 'form-input input-lg', placeholder: 'Paste a link to shrnk!' %>
+            <%= f.submit 'shrnk!', class: 'btn btn-primary input-group-btn btn-lg' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="results column col-12">
+      </div>
+    </div>
   </div>
 </div>
